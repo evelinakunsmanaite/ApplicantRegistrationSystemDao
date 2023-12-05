@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/ApplicantRegistrationSystemDao"/>
+<Context path="/ApplicantRegistrationSystemDao">
+      <Resource auth="Container"
+            driverClassName="com.mysql.cj.jdbc.Driver"
+            name="jdbc/GuestsDB"
+            password="evelina2002"
+            type="javax.sql.DataSource"
+            url="jdbc:mysql://127.0.0.1:3306/applicantRegSys"
+            username="root">
+  </Resource>
+  </Context>
