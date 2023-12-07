@@ -3,18 +3,35 @@ package com.model;
 public class Abiturient {
     
     private int id;
-    private String  firstName,middleName ,lastName, patronimic, telephone, address,noten;
+    private String  password, login, firstName,middleName ,lastName, telephone, address,noten;
 
-    public Abiturient(int id, String firstName, String lastName, String patronimic, String telephone, String address, String noten) {
+    public Abiturient(int id, String login, String password,String firstName,String middleName, String lastName, String telephone, String address, String noten) {
         this.id = id;
+        this.login = login;
+        this.password = password;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
-        this.patronimic = patronimic;
         this.telephone = telephone;
         this.address = address;
         this.noten = noten;
     }
+    
+        public Abiturient(String login, String password,String firstName,String middleName, String lastName, String telephone, String address, String noten) {
+        this.login = login;
+        this.password = password;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.telephone = telephone;
+        this.address = address;
+        this.noten = noten;
+    }
+    
+        public Abiturient(int id) {
+        this.id = id;
+    }
+
 
     public int getId() {
         return id;
@@ -22,6 +39,23 @@ public class Abiturient {
 
     public void setId(int id) {
         this.id = id;
+    }
+    
+  
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getFirstName() {
@@ -46,14 +80,6 @@ public class Abiturient {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getPatronimic() {
-        return patronimic;
-    }
-
-    public void setPatronimic(String patronimic) {
-        this.patronimic = patronimic;
     }
 
     public String getTelephone() {

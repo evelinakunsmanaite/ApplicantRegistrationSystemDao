@@ -1,9 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : 19 мая 2023 г., 08:12:08
-    Author     : Administrator
---%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 
@@ -13,7 +7,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
-        <link href="resources/css/logincss.css" rel="stylesheet" />
+        <style>
+            <%@include file="/resources/css/logincss.css"%>
+        </style>
     </head>
     <body>
         <div class="registration">

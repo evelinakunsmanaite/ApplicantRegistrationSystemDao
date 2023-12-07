@@ -16,8 +16,13 @@ public interface AbiturientService {
 
     Set<Abiturient> read();
 
-    boolean update();
+    boolean update(int id, String login, String password,String firstName,String middleName, String lastName, String telephone, String address, String noten);
 
     boolean delete(int id);
     
+    boolean loginAbiturient(String login, String pass);
+    
+    int[] gradeArray();
+
+    double calculateAverageGrade();
 }

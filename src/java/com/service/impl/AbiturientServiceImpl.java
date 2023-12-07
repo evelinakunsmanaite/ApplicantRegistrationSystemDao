@@ -7,15 +7,17 @@ package com.service.impl;
 import com.dao.AbiturientDao;
 import com.model.Abiturient;
 import com.service.AbiturientService;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
-import javax.sql.DataSource;
 
 /**
  *
  * @author Administrator
  */
-public class AbiturientServiceImpl implements AbiturientService{
-     AbiturientDao dao;
+public class AbiturientServiceImpl implements AbiturientService {
+
+    AbiturientDao dao;
 
     public AbiturientServiceImpl(AbiturientDao dao) {
         this.dao = dao;
@@ -23,22 +25,56 @@ public class AbiturientServiceImpl implements AbiturientService{
 
     @Override
     public boolean create(Abiturient abiturient) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return dao.create(abiturient) > 0;
     }
 
     @Override
     public Set<Abiturient> read() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return dao.read();
     }
 
     @Override
-    public boolean update() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean update(int id, String login, String password, String firstName, String middleName, String lastName, String telephone, String address, String noten) {
+        Abiturient abiturient = new Abiturient(id, login, password, firstName, middleName, lastName, telephone, address, noten);
+        return dao.update(abiturient) > 0;
     }
 
     @Override
     public boolean delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Abiturient abiturient = new Abiturient(id);
+        return dao.delete(abiturient) > 0;
     }
-    
+
+    @Override
+    public boolean loginAbiturient(String login, String pass) {
+        return dao.read().stream()
+                .anyMatch(abiturient -> login.equals(abiturient.getLogin())
+                && pass.equals(abiturient.getPassword()));
+
+    }
+
+    @Override
+    public int[] gradeArray() {
+        Set<Abiturient> abiturients = dao.read();
+
+        return abiturients.stream()
+                .flatMap(abiturient -> Arrays.stream(abiturient.getNoten().split(",")))
+                .mapToInt(grade -> Integer.parseInt(grade.trim()))
+                .toArray();
+
+    }
+
+    @Override
+    public double calculateAverageGrade() {
+        Set<Abiturient> abiturients = dao.read();
+
+        int[] grades = gradeArray();
+
+        double average = grades.length > 0
+                ? Arrays.stream(grades).average().orElse(0)
+                : 0;
+
+        return average;
+    }
+
 }

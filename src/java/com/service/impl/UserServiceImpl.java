@@ -43,4 +43,11 @@ public class UserServiceImpl implements UserService {
         return dao.delete(user) > 0;
     }
 
+    @Override
+    public boolean loginUser(String login, String pass) {
+        return dao.read().stream()
+                .anyMatch(user -> login.equals(user.getLogin())
+                && pass.equals(user.getPassword()));
+    }
+
 }

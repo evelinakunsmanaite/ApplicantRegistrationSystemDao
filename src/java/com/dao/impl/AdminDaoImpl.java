@@ -4,8 +4,8 @@
  */
 package com.dao.impl;
 
-import com.dao.*;
-import com.model.Abiturient;
+import com.dao.AdminDao;
+import com.model.Admin;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,29 +19,23 @@ import javax.sql.DataSource;
  *
  * @author Administrator
  */
-public class AbiturientDaoImpl implements AbiturientDao {
+public class AdminDaoImpl implements AdminDao {
 
     private DataSource dataSource;
 
-    public AbiturientDaoImpl(DataSource dataSource) {
+    public AdminDaoImpl(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
     @Override
-    public int create(Abiturient abiturient) {
+    public int create(Admin admin) {
         try (Connection conn = dataSource.getConnection()) {//установление соединения (получение соединения)
             int id;
 
-            String sql = "insert into abiturients(login,password,first_name,middle_name,last_name,telephone,address,grade) values(?,?,?,?,?,?,?,?)";//формирование запроса добавления
+            String sql = "insert into admin(login,password) values(?,?)";//формирование запроса добавления
             try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {//в наш подготовленный запрос передаём строку с запросом
-                preparedStatement.setString(1, abiturient.getLogin());
-                preparedStatement.setString(2, abiturient.getPassword());
-                preparedStatement.setString(3, abiturient.getFirstName());
-                preparedStatement.setString(4, abiturient.getMiddleName());
-                preparedStatement.setString(5, abiturient.getLastName());
-                preparedStatement.setString(6, abiturient.getTelephone());
-                preparedStatement.setString(7, abiturient.getAddress());
-                preparedStatement.setString(8, abiturient.getNoten());
+                preparedStatement.setString(1, admin.getLogin());
+                preparedStatement.setString(2, admin.getPassword());
 
                 int affectedRows = preparedStatement.executeUpdate();//количество добавленных строчек
 
@@ -65,27 +59,21 @@ public class AbiturientDaoImpl implements AbiturientDao {
     }
 
     @Override
-    public Set<Abiturient> read() {
-        String req = "Select * from abiturients";
-        Set<Abiturient> abiturients;
+    public Set<Admin> read() {
+        String req = "Select * from admin";
+        Set<Admin> admin;
         try (Connection conn = dataSource.getConnection()) {
             try (Statement statement = conn.createStatement(); ResultSet resultSet = statement.executeQuery(req)) {
-                abiturients = new HashSet<>();
+                admin = new HashSet<>();
                 while (resultSet.next()) {//пока есть записи 
                     int id = resultSet.getInt("id");
-                    String firstName = resultSet.getString("first_name");
-                    String middleName = resultSet.getString("middle_name");
-                    String lastName = resultSet.getString("last_name");
-                    String telephone = resultSet.getString("telephone");
-                    String address = resultSet.getString("address");
-                    String grade = resultSet.getString("grade");
                     String login = resultSet.getString("login");
                     String password = resultSet.getString("password");
 
-                    abiturients.add(new Abiturient(id, login, password, firstName, middleName, lastName, telephone, address, grade));
+                    admin.add(new Admin(id, login, password));
                 }
             }
-            return abiturients;
+            return admin;
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
@@ -93,19 +81,14 @@ public class AbiturientDaoImpl implements AbiturientDao {
     }
 
     @Override
-    public int update(Abiturient abiturient) {
+    public int update(Admin admin) {
         try (Connection conn = dataSource.getConnection()) {
-            String query = "UPDATE abiturients SET login =?,password =?,first_name =?,middle_name =?,last_name =?,telephone =?,address =?,grade =? WHERE id =?";
+            String query = "UPDATE admin SET login =?,password =? WHERE id =?";
             try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
-                preparedStatement.setString(1, abiturient.getLogin());
-                preparedStatement.setString(2, abiturient.getPassword());
-                preparedStatement.setString(3, abiturient.getFirstName());
-                preparedStatement.setString(4, abiturient.getMiddleName());
-                preparedStatement.setString(5, abiturient.getLastName());
-                preparedStatement.setString(6, abiturient.getTelephone());
-                preparedStatement.setString(7, abiturient.getAddress());
-                preparedStatement.setString(8, abiturient.getNoten());
-                preparedStatement.setInt(9, abiturient.getId());
+                preparedStatement.setString(1, admin.getLogin());
+                preparedStatement.setString(2, admin.getPassword());
+
+                preparedStatement.setInt(3, admin.getId());
                 return preparedStatement.executeUpdate();
             }
         } catch (SQLException ex) {
@@ -115,11 +98,11 @@ public class AbiturientDaoImpl implements AbiturientDao {
     }
 
     @Override
-    public int delete(Abiturient abiturient) {
+    public int delete(Admin admin) {
         try (Connection connection = dataSource.getConnection()) {
-            String query = "delete from abiturients where id = ?";
+            String query = "delete from admin where id = ?";
             try (PreparedStatement preparedStmt = connection.prepareStatement(query)) {
-                preparedStmt.setInt(1, abiturient.getId());
+                preparedStmt.setInt(1, admin.getId());
                 int result = preparedStmt.executeUpdate();
                 return result;
             }

@@ -4,7 +4,7 @@ package com.controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
+import com.model.Abiturient;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends InitServlet implements Jumpable {
- @Override
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -26,8 +27,23 @@ public class LoginServlet extends InitServlet implements Jumpable {
         // Получение введенного логина и пароля из формы
         String login = request.getParameter("login");
         String pass = request.getParameter("password");
-        
-        boolean isUser = userService.
-        
+
+        boolean isUser = userService.loginUser(login, pass);
+        boolean isAbiturient = abiturientService.loginAbiturient(login, pass);
+        boolean isAdmin = adminService.loginAdmin(login, pass);
+
+        if (isAdmin) {
+            jump("/WEB-INF/jsp/adminF.jsp", request, response);
+
+        } else if (isUser) {
+            jump("/WEB-INF/jsp/userCabinet.jsp", request, response);
+
+        } else if (isAbiturient) {
+            jump("/WEB-INF/jsp/cabinet.jsp", request, response);
+
+        }  else {
+            jump("/WEB-INF/jsp/error.jsp", request, response);
+
+        }
     }
 }

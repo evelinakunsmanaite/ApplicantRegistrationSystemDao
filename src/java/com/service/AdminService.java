@@ -4,21 +4,23 @@
  */
 package com.service;
 
-import com.model.User;
+import com.model.Abiturient;
+import com.model.Admin;
 import java.util.Set;
 
 /**
  *
  * @author Administrator
  */
-public interface UserService {
-    boolean create(User user);
+public interface AdminService {
+     boolean create(Admin admin);
 
-    Set<User> read();
+    Set<Admin> read();
 
-    boolean update(int id, String login, String lastName, String firstName, String middleName, String password);
+    boolean update(int id, String universityName, String pass);
 
     boolean delete(int id);
     
-    boolean loginUser (String login, String pass);
+    boolean loginAdmin(String login, String pass);
+
 }
