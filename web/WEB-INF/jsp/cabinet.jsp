@@ -21,11 +21,29 @@
     <body>
         <!-- Приветственное сообщение с именем и фамилией пользователя, полученными из сессии -->
         <h2>Добро пожаловать, <%= session.getAttribute("name")%> <%= session.getAttribute("lastName")%></h2>
+        <h3> Ваш балл: <fmt:formatNumber type="number" maxFractionDigits="2"><%= session.getAttribute("avg")%> </fmt:formatNumber> </h3>  
 
-        <!-- Отображение среднего балла студента -->
+            <!-- Таблица со списком университетов -->
+            <table>
+                <tr>
+                    <th>Список университетов</th>
+                    <th>Требуемое количество баллов</th>
+                    <th>Нужно набрать</th>
+                </tr>
 
-        <!-- Ссылка для возврата на страницу index.jsp -->
-        <a href="index.jsp">Назад</a>  
+                <!-- Цикл для прохода по университетам и отображения информации -->
+            <c:forEach var="university" items="${universities}" varStatus="loop">
+                <tr>
+                    <td>${university.universityName}</td>
+                    <td>${university.passingScore}</td>
+                    <c:set var="difference" value="${university.passingScore - sessionScope.avgx}" />
+                    <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${difference}" /></td>
+                </tr>           
+            </c:forEach>
+    </table>
 
-    </body>
+    <!-- Ссылка для возврата на страницу index.jsp -->
+    <a href="index.jsp">Назад</a>  
+
+</body>
 </html>

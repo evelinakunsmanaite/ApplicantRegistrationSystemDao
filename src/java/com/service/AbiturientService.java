@@ -20,9 +20,14 @@ public interface AbiturientService {
 
     boolean delete(int id);
     
-    boolean loginAbiturient(String login, String pass);
+    Abiturient loginAbiturient(String login, String pass);
     
-    int[] gradeArray();
+    double[] gradeArray(Abiturient abiturients);
 
-    double calculateAverageGrade();
+    double calculateAverageGrade(Abiturient abiturient);
+    
+    Set<Abiturient> filterAbiturientsWithUnsatisfactoryGrades();
+    
+    Set<Abiturient> filterAbiturientsByAvg(double avg);
+
 }

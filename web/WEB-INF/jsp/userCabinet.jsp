@@ -18,12 +18,11 @@
         <div class="registration">
 
             <!-- Приветственное сообщение с отображением имени и отчества пользователя, полученных из сессии -->
-            <h2>Добро пожаловать, <%= session.getAttribute("firstName")%> <%= session.getAttribute("middleName")%></h2>
             <h2>Списки данных</h2>
 
             <img src="resources/img/icon-university.png" alt="" class="round">
 
-            <!-- Форма для получения списка студентов с недостаточными оценками -->
+            <!-- Форма для получения списка студентов с неудовлетворительные оценками -->
             <form  action="neudServlet" method="get">
                 <div class="form-group"> 
                     <div class="input-container">

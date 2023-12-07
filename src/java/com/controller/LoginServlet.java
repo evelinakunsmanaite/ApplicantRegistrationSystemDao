@@ -5,7 +5,9 @@ package com.controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 import com.model.Abiturient;
+import com.model.University;
 import java.io.IOException;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +31,7 @@ public class LoginServlet extends InitServlet implements Jumpable {
         String pass = request.getParameter("password");
 
         boolean isUser = userService.loginUser(login, pass);
-        boolean isAbiturient = abiturientService.loginAbiturient(login, pass);
+        Abiturient isAbiturient = abiturientService.loginAbiturient(login, pass);
         boolean isAdmin = adminService.loginAdmin(login, pass);
 
         if (isAdmin) {
@@ -38,10 +40,19 @@ public class LoginServlet extends InitServlet implements Jumpable {
         } else if (isUser) {
             jump("/WEB-INF/jsp/userCabinet.jsp", request, response);
 
-        } else if (isAbiturient) {
+        } else if (isAbiturient != null) {
+            Set<University> universities = universityService.read();
+            double avg = abiturientService.calculateAverageGrade(isAbiturient);
+            
+            request.getSession().setAttribute("name", isAbiturient.getFirstName());
+            request.getSession().setAttribute("lastName", isAbiturient.getLastName());
+            request.getSession().setAttribute("avg", avg);
+            request.getSession().setAttribute("avgx", avg * 10);
+            request.setAttribute("universities", universities);
+
             jump("/WEB-INF/jsp/cabinet.jsp", request, response);
 
-        }  else {
+        } else {
             jump("/WEB-INF/jsp/error.jsp", request, response);
 
         }

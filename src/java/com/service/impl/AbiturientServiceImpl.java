@@ -8,6 +8,7 @@ import com.dao.AbiturientDao;
 import com.model.Abiturient;
 import com.service.AbiturientService;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -46,35 +47,52 @@ public class AbiturientServiceImpl implements AbiturientService {
     }
 
     @Override
-    public boolean loginAbiturient(String login, String pass) {
+    public Abiturient loginAbiturient(String login, String pass) {
         return dao.read().stream()
-                .anyMatch(abiturient -> login.equals(abiturient.getLogin())
-                && pass.equals(abiturient.getPassword()));
-
+                .filter(abiturient -> login.equals(abiturient.getLogin())
+                && pass.equals(abiturient.getPassword()))
+                .findFirst().orElse(null);
     }
 
     @Override
-    public int[] gradeArray() {
-        Set<Abiturient> abiturients = dao.read();
-
-        return abiturients.stream()
-                .flatMap(abiturient -> Arrays.stream(abiturient.getNoten().split(",")))
-                .mapToInt(grade -> Integer.parseInt(grade.trim()))
-                .toArray();
-
+    public double[] gradeArray(Abiturient abiturient) {
+        return Arrays.stream(abiturient.getNoten().split(","))
+                .mapToDouble(Double::parseDouble).toArray();
     }
 
     @Override
-    public double calculateAverageGrade() {
-        Set<Abiturient> abiturients = dao.read();
+    public double calculateAverageGrade(Abiturient abiturient) {
+        double[] grades = gradeArray(abiturient);
 
-        int[] grades = gradeArray();
-
-        double average = grades.length > 0
+        return grades.length > 0
                 ? Arrays.stream(grades).average().orElse(0)
                 : 0;
+    }
 
-        return average;
+    @Override
+    public Set<Abiturient> filterAbiturientsWithUnsatisfactoryGrades() {
+        Set<Abiturient> abiturients = dao.read();
+        Set<Abiturient> abiturientsNeud = new HashSet<>();
+        for (Abiturient abiturient : abiturients) {
+            for (double note : gradeArray(abiturient)) {
+                if (note < 4) {
+                    abiturientsNeud.add(abiturient);
+                }
+            }
+        }
+        return abiturientsNeud;
+    }
+    
+ @Override
+    public Set<Abiturient> filterAbiturientsByAvg(double avg) {
+        Set<Abiturient> abiturients = dao.read();
+        Set<Abiturient> abiturientsNeud = new HashSet<>();
+        for (Abiturient abiturient : abiturients) {
+            if (calculateAverageGrade(abiturient) > avg) {
+                abiturientsNeud.add(abiturient);
+            }
+        }
+        return abiturientsNeud;
     }
 
 }
