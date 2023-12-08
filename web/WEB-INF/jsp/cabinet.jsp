@@ -43,7 +43,9 @@
     </table>
 
     <!-- Ссылка для возврата на страницу index.jsp -->
-    <a href="index.jsp">Назад</a>  
-
+<form action="page" method="post">
+            <input type="hidden" name="page" value="toLogin">
+            <input type="submit" value="<fmt:message key="toHomepage" />">
+        </form>  
 </body>
 </html>

@@ -100,7 +100,13 @@
             </tr>
         </table>
            </c:forEach>
+        <br>
         <input type="submit" value="Update Abiturient"/>
     </form>
+    
+    <form action="page" method="post">
+            <input type="hidden" name="page" value="toAdmin">
+            <input type="submit" value="<fmt:message key="toHomepage" />">
+        </form>  
 </body>
 </html>

@@ -97,5 +97,9 @@
             </tr>
         </c:forEach>
     </table>
+       <form action="page" method="post">
+            <input type="hidden" name="page" value="toAdmin">
+            <input type="submit" value="<fmt:message key="toHomepage" />">
+        </form>
 </body>
 </html>

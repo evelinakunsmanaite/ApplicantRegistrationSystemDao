@@ -92,6 +92,8 @@
         </c:otherwise>
     </c:choose>
 
-    <a href="userCabinet.jsp">Назад</a>  
-</body>
+<form action="page" method="post">
+            <input type="hidden" name="page" value="toUser">
+            <input type="submit" value="<fmt:message key="toHomepage" />">
+        </form>  </body>
 </html>

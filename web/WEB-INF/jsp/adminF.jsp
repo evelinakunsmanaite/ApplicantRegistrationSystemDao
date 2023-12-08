@@ -68,6 +68,11 @@
             </a>
         </li>
     </ul>
+                    
+                    <form action="page" method="post">
+            <input type="hidden" name="page" value="toLogin">
+            <input type="submit" value="<fmt:message key="toHomepage" />">
+        </form>  
 </div>
 </body>
 </html>
