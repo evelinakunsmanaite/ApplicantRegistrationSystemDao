@@ -7,6 +7,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+     <fmt:setLocale value='${pageContext.response.locale}' scope="session"/>
+     <fmt:bundle basename="com.localization.messages.msg">
     <title>JSP Page</title>
     <style>
         body {
@@ -59,17 +61,17 @@
      <!-- Таблица с абитуриентами -->
     <table>
         <thead>
-            <th>id</th>
-            <th>Имя</th>
-            <th>Фамилия</th>
-            <th>Отчество</th>
-            <th>Телефон</th>
-            <th>Адрес</th>
-            <th>Оценки</th>
-            <th>Логин</th>
-            <th>Пароль</th>
-            <th>Удалить</th>
-            <th>Редактировать</th>
+            <th><fmt:message key="id" /></th>
+            <th><fmt:message key="firstName" /></th>
+            <th><fmt:message key="middleName" /></th>
+            <th><fmt:message key="lastName" /></th>
+            <th><fmt:message key="telephone" /></th>
+            <th><fmt:message key="address" /></th>
+            <th><fmt:message key="noten" /></th>
+            <th><fmt:message key="login" /></th>
+            <th><fmt:message key="password" /></th>
+            <th><fmt:message key="delete" /></th>
+            <th><fmt:message key="edit" /></th>
         </thead>
         <c:forEach var="abiturient" items="${abiturients}">
             <tr>
@@ -85,13 +87,13 @@
                 <td>
                     <form action="deleteAbiturient" method="post">
                         <input type="hidden" name="id" value="${abiturient.id}"/>
-                        <input type="submit" value="удалить"/>
+                        <input type="submit" value="<fmt:message key="delete" />"/>
                     </form>
                 </td>
                 <td>
                     <form action="updateAbiturient">
                         <input type="hidden" name="id" value="${abiturient.id}"/>
-                        <input type="submit" value="редактировать"/>
+                        <input type="submit" value="<fmt:message key="edit" />"/>
                     </form>
                 </td>
             </tr>
@@ -102,4 +104,5 @@
             <input type="submit" value="<fmt:message key="toHomepage" />">
         </form>
 </body>
+</fmt:bundle>
 </html>

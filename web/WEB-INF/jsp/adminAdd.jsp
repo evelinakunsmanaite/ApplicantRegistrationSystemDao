@@ -7,6 +7,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+     <fmt:setLocale value='${pageContext.response.locale}' scope="session"/>
+     <fmt:bundle basename="com.localization.messages.msg">
     <title>JSP Page</title>
     <style>
         body {
@@ -70,35 +72,36 @@
 
     <!-- Форма добавления абитуриента -->
     <form action="addAbiturient" method="post">
-        <label for="login">Login:</label>
+        <label for="login"><fmt:message key="login" /></label>
         <input type="text" name="login" required/><br/>
 
-        <label for="password">Password:</label>
+        <label for="password"><fmt:message key="password" /></label>
         <input type="password" name="password" required/><br/>
 
-        <label for="firstName">First Name:</label>
+        <label for="firstName"><fmt:message key="firstName" /></label>
         <input type="text" name="firstName" required/><br/>
 
-        <label for="middleName">Middle Name:</label>
+        <label for="middleName"><fmt:message key="middleName" /></label>
         <input type="text" name="middleName" required/><br/>
 
-        <label for="lastName">Last Name:</label>
+        <label for="lastName"><fmt:message key="lastName" /></label>
         <input type="text" name="lastName" required/><br/>
 
-        <label for="telephone">Telephone:</label>
+        <label for="telephone"><fmt:message key="telephone" /></label>
         <input type="text" name="telephone" required/><br/>
 
-        <label for="address">Address:</label>
+        <label for="address"><fmt:message key="address" /></label>
         <input type="text" name="address" required/><br/>
 
-        <label for="noten">Noten:</label>
+        <label for="noten"><fmt:message key="noten" /></label>
         <input type="text" name="noten" required/><br/>
 
-        <input type="submit" value="Add Abiturient"/>
+        <input type="submit" value="<fmt:message key="addAbiturient" />"/>
     </form>
    <form action="page" method="post">
             <input type="hidden" name="page" value="toAdmin">
             <input type="submit" value="<fmt:message key="toHomepage" />">
         </form>  
 </body>
+</fmt:bundle>
 </html>

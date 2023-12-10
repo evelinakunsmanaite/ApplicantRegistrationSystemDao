@@ -1,24 +1,24 @@
-<%-- 
-    Document   : userCabinet
-    Created on : 22 мая 2023 г., 01:37:53
-    Author     : Administrator
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+         <fmt:setLocale value='${pageContext.response.locale}' scope="session"/>
+         <fmt:bundle basename="com.localization.messages.msg">
         <style>
             <%@include file="/resources/css/userCabinetcss.css"%>
         </style>
-        <title>JSP Page</title>
+        <title><fmt:message key="pageTitle" /></title>
     </head>
     <body>
         <div class="registration">
 
             <!-- Приветственное сообщение с отображением имени и отчества пользователя, полученных из сессии -->
-            <h2>Списки данных</h2>
+            <h2><fmt:message key="welcomeMessage" /></h2>
 
             <img src="resources/img/icon-university.png" alt="" class="round">
 
@@ -26,8 +26,8 @@
             <form  action="neudServlet" method="get">
                 <div class="form-group"> 
                     <div class="input-container">
-                        <label><h3>Cписок абитуриентов, имеющих неудовлетворительные оценки:</h3>
-                            <input class="form-control item" type="submit" value="Отправить">
+                        <label><h3><fmt:message key="listUnsatisfactoryGrades" /></h3>
+                            <input class="form-control item" type="submit" value="<fmt:message key='send' />">
                         </label>    
                     </div>
 
@@ -37,9 +37,9 @@
             <!-- Форма для получения списка студентов с средним баллом выше указанного значения -->
             <form action="avgServlet" method="post">
                 <div class="form-group"> <div class="input-container">
-                        <label><h3>Cписок абитуриентов, средний балл у которых выше заданного:</h3>
-                            <input class="form-control item" type="text" name="avg" required placeholder="Введите средний балл">
-                            <input class="form-control item" type="submit" value="Отправить">
+                        <label><h3><fmt:message key="listAboveAverage" /></h3>
+                            <input class="form-control item" type="text" name="avg" required placeholder="<fmt:message key='enterAverageScore' />">
+                            <input class="form-control item" type="submit" value="<fmt:message key='send' />">
                         </label>    
                     </div> 
                 </div>
@@ -50,4 +50,5 @@
             <input type="submit" value="<fmt:message key="toHomepage" />">
         </form>    
     </body>
+    </fmt:bundle>
 </html>

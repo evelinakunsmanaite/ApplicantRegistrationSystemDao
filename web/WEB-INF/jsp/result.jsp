@@ -7,7 +7,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="resources/css/resultcss.css" rel="stylesheet" />
-
+ <fmt:setLocale value='${pageContext.response.locale}' scope="session"/>
+ <fmt:bundle basename="com.localization.messages.msg">
         <title>Результат</title>
         
         <style>
@@ -63,14 +64,12 @@
             <c:when test="${not empty result}">
                 <table>
                     <thead>
-
-                    <th>Имя</th>
-                    <th>Фамилия</th>
-                    <th>Отчество</th>
-                    <th>Телефон</th>
-                    <th>Адрес</th>
-                    <th>Оценки</th>
-
+ <th><fmt:message key="firstName" /></th>
+                        <th><fmt:message key="middleName" /></th>
+                        <th><fmt:message key="lastName" /></th>
+                        <th><fmt:message key="telephone" /></th>
+                        <th><fmt:message key="address" /></th>
+                        <th><fmt:message key="noten" /></th>
                 </thead>
                 <c:forEach var="abiturient" items="${result}">
                     <tr>
@@ -88,7 +87,7 @@
         </c:when>
 
         <c:otherwise>
-            <c:out value="искомые данные отсутствуют" />
+            <c:out value="<fmt:message key='noDataFound' />s" />
         </c:otherwise>
     </c:choose>
 
@@ -96,4 +95,5 @@
             <input type="hidden" name="page" value="toUser">
             <input type="submit" value="<fmt:message key="toHomepage" />">
         </form>  </body>
+    </fmt:bundle>
 </html>

@@ -1,13 +1,12 @@
 package com.controller;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
+import com.errors.ValidationError;
 import com.model.Abiturient;
 import com.model.University;
+import com.validators.Validator;
 import java.io.IOException;
 import java.util.Set;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +33,15 @@ public class LoginServlet extends InitServlet implements Jumpable {
         Abiturient isAbiturient = abiturientService.loginAbiturient(login, pass);
         boolean isAdmin = adminService.loginAdmin(login, pass);
 
+        ValidationError errors = new ValidationError();
+        Validator.validate(login, pass, isUser, isAbiturient, isAdmin, errors);
+        RequestDispatcher rd;
+        if (!errors.getErrorList().isEmpty()) {
+            request.setAttribute("result", errors);
+            rd = getServletContext().getRequestDispatcher("/WEB-INF/jsp/index.jsp");
+            rd.forward(request, response);
+        }
+
         if (isAdmin) {
             jump("/WEB-INF/jsp/adminF.jsp", request, response);
 
@@ -43,7 +51,7 @@ public class LoginServlet extends InitServlet implements Jumpable {
         } else if (isAbiturient != null) {
             Set<University> universities = universityService.read();
             double avg = abiturientService.calculateAverageGrade(isAbiturient);
-            
+
             request.getSession().setAttribute("name", isAbiturient.getFirstName());
             request.getSession().setAttribute("lastName", isAbiturient.getLastName());
             request.getSession().setAttribute("avg", avg);
@@ -52,9 +60,7 @@ public class LoginServlet extends InitServlet implements Jumpable {
 
             jump("/WEB-INF/jsp/cabinet.jsp", request, response);
 
-        } else {
-            jump("/WEB-INF/jsp/error.jsp", request, response);
-
         }
+
     }
 }

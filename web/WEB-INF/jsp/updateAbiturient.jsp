@@ -6,6 +6,8 @@
 <!DOCTYPE html><html>
 <head>
     <meta charset="UTF-8">
+    <fmt:setLocale value='${pageContext.response.locale}' scope="session"/>
+    <fmt:bundle basename="com.localization.messages.msg">
     <title>Update Abiturient</title>
     <style>
         body {
@@ -67,41 +69,41 @@
         
         <table>
             <tr>
-                <td>First Name:</td>
+                <td><fmt:message key="firstName" /></td>
                 <td><input type="text" name="firstName" value="${abiturient.firstName}" required/></td>
             </tr>
             <tr>
-                <td>Middle Name:</td>
+                <td><fmt:message key="middleName" /></td>
                 <td><input type="text" name="middleName" value="${abiturient.middleName}" required/></td>
             </tr>
             <tr>
-                <td>Last Name:</td>
+                <td><fmt:message key="lastName" /></td>
                 <td><input type="text" name="lastName" value="${abiturient.lastName}" required/></td>
             </tr>
             <tr>
-                <td>Telephone:</td>
+                <td><fmt:message key="telephone" /></td>
                 <td><input type="text" name="telephone" value="${abiturient.telephone}" required/></td>
             </tr>
             <tr>
-                <td>Address:</td>
+                <td><fmt:message key="address" /></td>
                 <td><input type="text" name="address" value="${abiturient.address}" required/></td>
             </tr>
             <tr>
-                <td>Noten:</td>
+                <td><fmt:message key="noten" /></td>
                 <td><input type="text" name="noten" value="${abiturient.noten}" required/></td>
             </tr>
             <tr>
-                <td>Login:</td>
+                <td><fmt:message key="login" /></td>
                 <td><input type="text" name="login" value="${abiturient.login}" required/></td>
             </tr>
             <tr>
-                <td>Password:</td>
+                <td><fmt:message key="password" /></td>
                 <td><input type="text" name="password" value="${abiturient.password}" required/></td>
             </tr>
         </table>
            </c:forEach>
         <br>
-        <input type="submit" value="Update Abiturient"/>
+        <input type="submit" value="<fmt:message key='updateAbiturient' />"/>
     </form>
     
     <form action="page" method="post">
@@ -109,4 +111,5 @@
             <input type="submit" value="<fmt:message key="toHomepage" />">
         </form>  
 </body>
+</fmt:bundle>
 </html>

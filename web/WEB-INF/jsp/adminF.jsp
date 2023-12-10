@@ -1,8 +1,14 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <fmt:setLocale value='${pageContext.response.locale}' scope="session"/>
+    <fmt:bundle basename="com.localization.messages.msg">
     <title>JSP Page</title>
     <style>
         body {
@@ -59,12 +65,12 @@
     <ul class="nav-menu">
         <li>
             <a href="addAbiturient" method="post">
-                <i class="fas fa-plus"></i> addAbiturient
+                <i class="fas fa-plus"></i> <fmt:message key="addAbiturient" />
             </a>
         </li>
         <li>
             <a href="readAbiturient">
-                <i class="fas fa-user"></i> readAbiturient
+                <i class="fas fa-user"></i> <fmt:message key="readAbiturient" />
             </a>
         </li>
     </ul>
@@ -75,4 +81,5 @@
         </form>  
 </div>
 </body>
+</fmt:bundle>
 </html>

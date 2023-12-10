@@ -1,22 +1,38 @@
-<%-- 
-    Document   : error
-    Created on : 21 мая 2023 г., 18:30:03
-    Author     : Administrator
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="resources/css/errorcss.css" rel="stylesheet" />
-        <title>Ошибка</title>
+            <fmt:setLocale value='${pageContext.response.locale}' scope="session"/>
+    <fmt:bundle basename="com.localization.messages.msg">
+        <title> <fmt:message key = "error"/></title>
     </head>
     <body>
-        <!-- Заголовок с сообщением об ошибке, переданным в переменной error -->
-        <h1 style='color:red;'>${error}</h1>
-
-        <!-- Ссылка для возврата на страницу index.jsp -->
-        <a href="index.jsp">Назад</a>         
-    </body>
+            <div class="error-container">
+                <h1>
+                    <fmt:message key = "error">
+                        <fmt:param value="${pageContext.exception.message}"/>
+                    </fmt:message>
+                </h1>
+                <h2>
+                    <fmt:message key = "error.code">
+                        <fmt:param value="${pageContext.errorData.statusCode}"/>
+                    </fmt:message>                
+                </h2>
+                <h3>
+                    <fmt:message key = "error.name">
+                        <fmt:param value="${pageContext.exception.getClass().getName()}"/>
+                        <fmt:param value="${pageContext.errorData.requestURI}"/>
+                    </fmt:message>                 
+                </h3>  
+                <form action="index.html">
+                    <input type="submit" value='<fmt:message key = "to.main"/>'/>
+                </form>
+            </div>         
+        </body>
+    </fmt:bundle>
+       
 </html>
