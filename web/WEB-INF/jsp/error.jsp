@@ -3,36 +3,74 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="resources/css/errorcss.css" rel="stylesheet" />
-            <fmt:setLocale value='${pageContext.response.locale}' scope="session"/>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="resources/css/errorcss.css" rel="stylesheet" />
+    
+    <fmt:setLocale value='${pageContext.response.locale}' scope="session"/>
     <fmt:bundle basename="com.localization.messages.msg">
-        <title> <fmt:message key = "error"/></title>
-    </head>
-    <body>
-            <div class="error-container">
-                <h1>
-                    <fmt:message key = "error">
-                        <fmt:param value="${pageContext.exception.message}"/>
-                    </fmt:message>
-                </h1>
-                <h2>
-                    <fmt:message key = "error.code">
-                        <fmt:param value="${pageContext.errorData.statusCode}"/>
-                    </fmt:message>                
-                </h2>
-                <h3>
-                    <fmt:message key = "error.name">
-                        <fmt:param value="${pageContext.exception.getClass().getName()}"/>
-                        <fmt:param value="${pageContext.errorData.requestURI}"/>
-                    </fmt:message>                 
-                </h3>  
-                <form action="index.html">
-                    <input type="submit" value='<fmt:message key = "to.main"/>'/>
-                </form>
-            </div>         
-        </body>
-    </fmt:bundle>
-       
+        <title><fmt:message key="error"/></title>
+        <style>
+            body {
+    background-color: #826590;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.error-container {
+    padding: 30px 60px;
+    background: white;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 10px 5px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    opacity: 0.5;
+}
+
+.error-container h1 {
+    font-size: 40px;
+    color: #ff0000; /* Red color for the error message */
+    text-align: center;
+}
+
+.error-container .submit {
+    padding: 10px 20px;
+    background-color: #442952;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+            
+        </style>
+</head>
+<body>
+    <div class="error-container">
+        <h1>
+            <fmt:message key="error">
+                <fmt:param value="${pageContext.exception.message}"/>
+            </fmt:message>
+        </h1>
+        <h2>
+            <fmt:message key="error.code">
+                <fmt:param value="${pageContext.errorData.statusCode}"/>
+            </fmt:message>
+        </h2>
+        <h3>
+            <fmt:message key="error.name">
+                <fmt:param value="${pageContext.exception.getClass().getName()}"/>
+                <fmt:param value="${pageContext.errorData.requestURI}"/>
+            </fmt:message>
+        </h3>
+        <form action="index.html">
+            <input type="submit" class="submit" value='<fmt:message key="to.main"/>'/>
+        </form>
+    </div>
+</body>
 </html>

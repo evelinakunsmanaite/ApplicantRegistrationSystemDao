@@ -15,10 +15,11 @@
         <title><fmt:message key="pageTitle" /></title>
     </head>
     <body>
-        <div class="registration">
-
+        <div class="registration">           
             <!-- Приветственное сообщение с отображением имени и отчества пользователя, полученных из сессии -->
-            <h2><fmt:message key="welcomeMessage" /></h2>
+
+        <h2><fmt:message key="welcomeMessage"/> <%= session.getAttribute("name")%> <%= session.getAttribute("lastName")%></h2>
+
 
             <img src="resources/img/icon-university.png" alt="" class="round">
 
@@ -49,6 +50,7 @@
             <input type="hidden" name="page" value="toLogin">
             <input type="submit" value="<fmt:message key="toHomepage" />">
         </form>    
+        </div>
     </body>
     </fmt:bundle>
 </html>

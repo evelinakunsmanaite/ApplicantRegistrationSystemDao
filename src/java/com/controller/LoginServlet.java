@@ -3,6 +3,7 @@ package com.controller;
 import com.errors.ValidationError;
 import com.model.Abiturient;
 import com.model.University;
+import com.model.User;
 import com.validators.Validator;
 import java.io.IOException;
 import java.util.Set;
@@ -29,7 +30,7 @@ public class LoginServlet extends InitServlet implements Jumpable {
         String login = request.getParameter("login");
         String pass = request.getParameter("password");
 
-        boolean isUser = userService.loginUser(login, pass);
+        User isUser = userService.loginUser(login, pass);
         Abiturient isAbiturient = abiturientService.loginAbiturient(login, pass);
         boolean isAdmin = adminService.loginAdmin(login, pass);
 
@@ -45,8 +46,12 @@ public class LoginServlet extends InitServlet implements Jumpable {
         if (isAdmin) {
             jump("/WEB-INF/jsp/adminF.jsp", request, response);
 
-        } else if (isUser) {
-            jump("/WEB-INF/jsp/userCabinet.jsp", request, response);
+        } else if (isUser != null) {
+           request.getSession().setAttribute("name", isUser.getFirstName());
+                request.getSession().setAttribute("lastName", isUser.getLastName());
+
+                        jump("/WEB-INF/jsp/userCabinet.jsp", request, response);
+
 
         } else if (isAbiturient != null) {
             Set<University> universities = universityService.read();

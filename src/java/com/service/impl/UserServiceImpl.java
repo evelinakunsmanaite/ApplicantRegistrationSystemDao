@@ -44,10 +44,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean loginUser(String login, String pass) {
+    public User loginUser(String login, String pass) {
         return dao.read().stream()
-                .anyMatch(user -> login.equals(user.getLogin())
-                && pass.equals(user.getPassword()));
+                .filter(user -> login.equals(user.getLogin())
+                && pass.equals(user.getPassword()))
+                .findFirst().orElse(null);
     }
 
 }
