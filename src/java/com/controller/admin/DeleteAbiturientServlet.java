@@ -27,9 +27,12 @@ public class DeleteAbiturientServlet extends InitServlet implements Jumpable {
         String idStr = request.getParameter("id");
         int id = Integer.parseInt(idStr);
         boolean success = abiturientService.delete(id);
-        request.setAttribute("success",  success ? "Данные удалены" : "Данные не удалены");
-        jump("/WEB-INF/jsp/admin.jsp", request, response);
-    }
+if (success){
+        jump("/WEB-INF/jsp/res.jsp", request, response);
+    } else {
+        jump("/WEB-INF/jsp/res.jsp", request, response);
 
-    
+}
+
+    }
 }

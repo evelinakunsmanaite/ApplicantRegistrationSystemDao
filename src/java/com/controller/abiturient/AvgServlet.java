@@ -36,12 +36,16 @@ public class AvgServlet extends InitServlet implements Jumpable {
 
         // Создание списка для хранения результата
         Set<Abiturient> result = abiturientService.filterAbiturientsByAvg(avg);
+if (result.isEmpty()){
+        jump("/WEB-INF/jsp/null.jsp", request, response);
 
+
+} else {
         // Установка атрибута "result" с результатом для передачи на другую страницу
         request.setAttribute("result", result);
 
         // Перенаправление запроса и ответа на страницу result.jsp
-        jump("/WEB-INF/jsp/result.jsp", request, response);
-
+        jump("/WEB-INF/jsp/resultU.jsp", request, response);
+}
     }
 }

@@ -52,7 +52,7 @@ public class UpdateAbiturientServlet extends InitServlet implements Jumpable {
         boolean isAbiturientUpdate = abiturientService.update(id, login, password, firstName, middleName, lastName, telephone, address, noten);
 
         if (isAbiturientUpdate) {
-            jump("/WEB-INF/jsp/admin.jsp", request, response);
+            jump("/WEB-INF/jsp/res.jsp", request, response);
 
         } else {
             jump("/WEB-INF/jsp/error.jsp", request, response);

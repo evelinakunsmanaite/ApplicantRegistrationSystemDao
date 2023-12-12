@@ -38,7 +38,7 @@ public class AddAbiturientServlet extends InitServlet implements Jumpable {
 
         boolean isAbiturientAdd = abiturientService.create(abiturient);
         if (isAbiturientAdd) {
-            jump("/WEB-INF/jsp/adminAdd.jsp", request, response);
+            jump("/WEB-INF/jsp/res.jsp", request, response);
 
         } else {
             jump("/WEB-INF/jsp/error.jsp", request, response);

@@ -59,9 +59,7 @@
     </style>
     </head>
     <body>
-        <c:choose>
 
-            <c:when test="${not empty result}">
                 <table>
                     <thead>
  <th><fmt:message key="firstName" /></th>
@@ -84,12 +82,7 @@
                     </tr>
                 </c:forEach>
             </table>
-        </c:when>
 
-        <c:otherwise>
-            <c:out value="<fmt:message key='noDataFound' />s" />
-        </c:otherwise>
-    </c:choose>
 
 <form action="page" method="post">
             <input type="hidden" name="page" value="toUser">
